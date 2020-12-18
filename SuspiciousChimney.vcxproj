@@ -98,7 +98,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SUS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
@@ -115,7 +115,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>SC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SUS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -173,14 +173,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Entities\Chimney.cpp" />
+    <ClCompile Include="Source\Entities\Entitiy.cpp" />
+    <ClCompile Include="Source\Entities\Player.cpp" />
+    <ClCompile Include="Source\Entities\Roof.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameStates\CutsceneState.cpp" />
     <ClCompile Include="Source\GameStates\GameState.cpp" />
     <ClCompile Include="Source\GameStates\GameStateManager.cpp" />
+    <ClCompile Include="Source\Graphics\TextureCache.cpp" />
     <ClCompile Include="Source\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Source\Scene\Camera.cpp" />
+    <ClCompile Include="Source\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -188,10 +195,22 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Debug.h" />
+    <ClInclude Include="Source\Entities\Chimney.h" />
+    <ClInclude Include="Source\Entities\Entitiy.h" />
+    <ClInclude Include="Source\Entities\Player.h" />
+    <ClInclude Include="Source\Entities\Roof.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameStates\CutsceneState.h" />
     <ClInclude Include="Source\GameStates\GameState.h" />
     <ClInclude Include="Source\GameStates\GameStateManager.h" />
+    <ClInclude Include="Source\Graphics\TextureCache.h" />
+    <ClInclude Include="Source\Scene\Camera.h" />
+    <ClInclude Include="Source\Scene\Scene.h" />
+    <ClInclude Include="Source\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\SpriteSheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

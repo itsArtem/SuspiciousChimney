@@ -1,10 +1,10 @@
 #include "Game.h"
 #include "GameStates/CutsceneState.h"
+#include "Utility.h"
 
 #include <SDL_events.h>
 
 #include <chrono>
-#include <memory>
 
 namespace sus
 {
@@ -15,8 +15,8 @@ namespace sus
 
 		using namespace std::chrono;
 		steady_clock::time_point lastTime{steady_clock::now()};
-		const float timePerFrame = ups / 1e9f;
-		float delta = 0.0f;
+		const float timePerFrame{1e9f / ups};
+		float delta{0.0f};
 
 		while (running)
 		{
@@ -26,22 +26,22 @@ namespace sus
 				delta = ups * 2.0f;
 			lastTime = now;
 
-			while (delta >= 0)
+			while (delta > 0)
 			{
 				update();
-				render();
-
 				--delta;
 			}
+
+			render();
 		}
 	}
 	
 	void Game::init()
 	{
-		window.reset(SDL_CreateWindow("Suspicious Chimney", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_RESIZABLE));
+		window.reset(SDL_CreateWindow("Suspicious Chimney", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN));
 		renderer.reset(SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED));
 
-		gameStateManager.emplaceBack(std::make_unique<states::CutsceneState>());
+		gameStateManager.emplaceBack(std::make_unique<states::CutsceneState>(*this));
 	}
 
 	void Game::update() noexcept
