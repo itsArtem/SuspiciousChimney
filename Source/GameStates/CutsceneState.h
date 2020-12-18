@@ -3,6 +3,7 @@
 #include "GameState.h"
 #include "../Scene/Scene.h"
 #include "../Entities/Entitiy.h"
+#include "../Graphics/SnowScreen.h"
 
 #include <chrono>
 
@@ -30,5 +31,8 @@ namespace sus::states
 
 		float cameraVelocity{0.0f};
 		const std::chrono::steady_clock::time_point spawnTime{std::chrono::steady_clock::now()};
+
+		gfx::SnowScreen backgroundSnow;
+		gfx::SnowScreen foregroundSnow;
 	};
 }

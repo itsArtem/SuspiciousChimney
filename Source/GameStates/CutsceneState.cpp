@@ -4,10 +4,9 @@
 #include "../Entities/Player.h"
 #include "../Entities/Roof.h"
 #include "../Entities/Chimney.h"
+#include "../Graphics/Animation.h"
 
 #include <SDL_render.h>
-#include <SDL_video.h>
-#include <SDL_pixels.h>
 
 #include <memory>
 
@@ -15,15 +14,13 @@ namespace sus::states
 {
 	CutsceneState::CutsceneState(Game &game) noexcept
 		: game{game},
-		scene{game}
+		scene{game},
+		backgroundSnow{game.textureCache.load("Resources/Snow.png", game.getRenderer()), {0.0f, 0.0f, 1600.0f, 1600.0f}, {0.01f, 1.3f}},
+		foregroundSnow{game.textureCache[0], {0.0f, 0.0f, 1600.0f, 1600.0f}, {-0.02f, 1.4f}}
 	{
 		SDL_Texture *const spriteSheet = game.textureCache.load("Resources/SpriteSheet.png", game.getRenderer());
-		
-		entities::Entity *const player{scene.entities.emplace_back(std::make_unique<entities::Player>(SDL_FPoint{300.0f, 248.0f}, 
-			entities::Player::IdleTexture{spriteSheet, SDL_Rect{0, 0, 16, 24}}, 
-			scene,
-			false)).get()};
 
+		scene.entities.emplace_back(std::make_unique<entities::Player>(SDL_FPoint{300.0f, 248.0f}, gfx::Animation{spriteSheet, 2, {0, 0, 16, 23}, 350.0f}, scene, false, game));
 		scene.entities.emplace_back(std::make_unique<entities::Roof>(SDL_FPoint{0.0f, 350.0f}, spriteSheet, SDL_Rect{0, 80, 128, 40}, scene.camera));
 
 		chimney = scene.entities.emplace_back(std::make_unique<entities::Chimney>(SDL_FPoint{75.0f, 376.0f},
@@ -36,7 +33,7 @@ namespace sus::states
 
 	void states::CutsceneState::update() noexcept
 	{
-		if (std::chrono::steady_clock::now() - spawnTime >= std::chrono::seconds{2})
+		if (std::chrono::steady_clock::now() - spawnTime >= std::chrono::seconds{3})
 		{
 			constexpr float maxVelocity{26.0f};
 
@@ -58,11 +55,19 @@ namespace sus::states
 			scene.camera.pos.y -= cameraVelocity;
 		}
 
+		backgroundSnow.update();
 		scene.update();
+		foregroundSnow.update();
 	}
 
 	void states::CutsceneState::render() const noexcept
 	{
+		SDL_Renderer *const renderer{game.getRenderer()};
+		SDL_SetRenderDrawColor(renderer, 10, 10, 12, 0);
+		SDL_RenderFillRect(renderer, nullptr);
+
+		backgroundSnow.render(renderer);
 		scene.render();
+		foregroundSnow.render(renderer, SDL_FLIP_HORIZONTAL);
 	}
 }

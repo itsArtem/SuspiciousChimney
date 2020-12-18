@@ -181,6 +181,8 @@
     <ClCompile Include="Source\GameStates\CutsceneState.cpp" />
     <ClCompile Include="Source\GameStates\GameState.cpp" />
     <ClCompile Include="Source\GameStates\GameStateManager.cpp" />
+    <ClCompile Include="Source\Graphics\Animation.cpp" />
+    <ClCompile Include="Source\Graphics\SnowScreen.cpp" />
     <ClCompile Include="Source\Graphics\TextureCache.cpp" />
     <ClCompile Include="Source\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -204,12 +206,15 @@
     <ClInclude Include="Source\GameStates\CutsceneState.h" />
     <ClInclude Include="Source\GameStates\GameState.h" />
     <ClInclude Include="Source\GameStates\GameStateManager.h" />
+    <ClInclude Include="Source\Graphics\Animation.h" />
+    <ClInclude Include="Source\Graphics\SnowScreen.h" />
     <ClInclude Include="Source\Graphics\TextureCache.h" />
     <ClInclude Include="Source\Scene\Camera.h" />
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Snow.png" />
     <Image Include="Resources\SpriteSheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

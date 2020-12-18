@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Scene/Scene.h"
 #include "../Utility.h"
+#include "../Game.h"
 
 #include "SDL_keyboard.h"
 
@@ -8,17 +9,12 @@
 
 namespace sus::entities
 {
-	Player::IdleTexture::IdleTexture(SDL_Texture *texture, SDL_Rect src) noexcept
-		: texture{texture},
-		src{src}
-	{
-	}
-
-	Player::Player(const SDL_FPoint &pos, const IdleTexture &idle, const scene::Scene &scene, bool controllable) noexcept
+	Player::Player(const SDL_FPoint &pos, const gfx::Animation &idle, const scene::Scene &scene, bool controllable, const Game &game) noexcept
 		: Entity{pos, {74.0f, 96.0f}, {0.0f, 0.0f}, {3.0f, 3.0f}, {5.0f, 5.0f, 55.0f, 92.0f}, scene.camera},
-		idle{idle},
 		scene{scene},
-		controllable{controllable}
+		controllable{controllable},
+		idle{idle},
+		game{game}
 	{
 	}
 
@@ -37,7 +33,10 @@ namespace sus::entities
 				velocity.x = -speed.x;
 			if (keyboard[SDL_SCANCODE_D])
 				velocity.x = speed.x;
+
 		}
+		else
+			idle.update(game.ups);
 
 		const SDL_FRect hitbox{pos.x + bounds.x, pos.y + bounds.y, bounds.w, bounds.h};
 		for (const auto &other : scene.entities)
@@ -79,6 +78,6 @@ namespace sus::entities
 	void Player::render(SDL_Renderer *renderer) const noexcept
 	{
 		if (!controllable)
-			SDL_RenderCopyF(renderer, idle.texture, &idle.src, &getDestination());
+			idle.render(renderer, getDestination());
 	}
 }

@@ -62,7 +62,7 @@ typedef struct SDL_RWops
      *
      *  \return the final offset in the data stream, or -1 on error.
      */
-    Sint64 (SDLCALL * seek) (struct SDL_RWops * context, Sint64 offset,
+    Sint64 (SDLCALL * seek) (struct SDL_RWops * context, Sint64 innerOffset,
                              int whence);
 
     /**
@@ -187,7 +187,7 @@ extern DECLSPEC Sint64 SDLCALL SDL_RWsize(SDL_RWops *context);
  *  \return the final offset in the data stream, or -1 on error.
  */
 extern DECLSPEC Sint64 SDLCALL SDL_RWseek(SDL_RWops *context,
-                                          Sint64 offset, int whence);
+                                          Sint64 innerOffset, int whence);
 
 /**
  *  Return the current offset in the data stream, or -1 on error.

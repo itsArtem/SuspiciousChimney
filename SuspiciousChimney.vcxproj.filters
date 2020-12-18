@@ -13,6 +13,8 @@
     <ClCompile Include="Source\Entities\Player.cpp" />
     <ClCompile Include="Source\Entities\Roof.cpp" />
     <ClCompile Include="Source\Entities\Chimney.cpp" />
+    <ClCompile Include="Source\Graphics\Animation.cpp" />
+    <ClCompile Include="Source\Graphics\SnowScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -33,8 +35,11 @@
     <ClInclude Include="Source\Entities\Roof.h" />
     <ClInclude Include="Source\Entities\Chimney.h" />
     <ClInclude Include="Source\Utility.h" />
+    <ClInclude Include="Source\Graphics\Animation.h" />
+    <ClInclude Include="Source\Graphics\SnowScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SpriteSheet.png" />
+    <Image Include="Resources\Snow.png" />
   </ItemGroup>
 </Project>
