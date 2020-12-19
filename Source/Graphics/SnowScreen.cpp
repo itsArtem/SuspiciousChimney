@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 26812) // Use of unscoped enum warning. The enum is from an external library, so there's nothing that can be done about it.
+#endif
+
 namespace sus::gfx
 {
 	SnowScreen::SnowScreen(SDL_Texture *texture, const SDL_FRect &dst, SDL_FPoint speed) noexcept
@@ -59,3 +64,7 @@ namespace sus::gfx
 		SDL_RenderCopyExF(renderer, texture, nullptr, &dst10, 0.0, nullptr, flip);
 	}
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif

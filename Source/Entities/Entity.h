@@ -6,18 +6,31 @@
 #include <SDL_render.h>
 #include <SDL_rect.h>
 
+#include <optional>
+
 namespace sus::entities
 {
 	class Entity
 	{
 	public:
-		SDL_FPoint pos;
-		const SDL_FPoint size;
+		struct Transform final
+		{
+			SDL_FPoint pos{0.0f, 0.0f};
+			const SDL_FPoint size{0.0f, 0.0f};
 
-		SDL_FPoint velocity{0.0f, 0.0f};
-		SDL_FPoint friction{0.0f, 0.0f};
+			SDL_FPoint velocity{0.0f, 0.0f};
+			SDL_FPoint friction{0.0f, 0.0f};
 
-		SDL_FRect bounds{0.0f, 0.0f, 0.0f, 0.0f};
+			SDL_FRect bounds{0.0f, 0.0f, 0.0f, 0.0f};
+
+			Transform() = default;
+			Transform(const SDL_FPoint &pos, const SDL_FPoint &size, const SDL_FPoint &velocity, const SDL_FPoint &friction, const SDL_FRect &bounds) noexcept;
+		};
+
+
+		Transform tf;
+		std::optional<int> health;
+		bool active{true};
 
 		virtual Entity::~Entity() = default;
 
@@ -29,12 +42,11 @@ namespace sus::entities
 
 		SDL_FRect getDestination() const noexcept
 		{
-			return {pos.x - camera.pos.x, pos.y - camera.pos.y, size.x, size.y};
+			return {tf.pos.x - camera.pos.x, tf.pos.y - camera.pos.y, tf.size.x, tf.size.y};
 		}
 
 	protected:
-		Entity(const SDL_FPoint &pos, const SDL_FPoint &size, const scene::Camera &camera) noexcept;
-		Entity(const SDL_FPoint &pos, const SDL_FPoint &size, const SDL_FPoint &velocity, const SDL_FPoint &friction, const SDL_FRect &bounds, const scene::Camera &camera) noexcept;
+		Entity(const Transform &tf, std::optional<int> health, const scene::Camera &camera) noexcept;
 
 		Entity(const Entity &other) = default;
 		Entity(Entity &&other) = default;

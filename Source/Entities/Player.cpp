@@ -2,18 +2,27 @@
 #include "../Scene/Scene.h"
 #include "../Utility.h"
 #include "../Game.h"
+#include "../GameStates/GameOverState.h"
 
-#include "SDL_keyboard.h"
+#include <SDL_keyboard.h>
 
+#include <utility>
 #include <cstdint>
 
 namespace sus::entities
 {
-	Player::Player(const SDL_FPoint &pos, const gfx::Animation &idle, const scene::Scene &scene, bool controllable, const Game &game) noexcept
-		: Entity{pos, {74.0f, 96.0f}, {0.0f, 0.0f}, {3.0f, 3.0f}, {5.0f, 5.0f, 55.0f, 92.0f}, scene.camera},
+	Player::ControllableVisuals::ControllableVisuals(SDL_Texture *spriteSheet, SDL_Rect hurtSrc, const gfx::Animation &attacking) noexcept
+		: spriteSheet{spriteSheet},
+		hurtSrc{hurtSrc},
+		attacking{attacking}
+	{
+	}
+
+	Player::Player(const SDL_FPoint &pos, const gfx::Animation &animation, std::optional<ControllableVisuals> &&controllable, scene::Scene &scene, Game &game) noexcept
+		: Entity{{pos, {74.0f, 96.0f}, {0.0f, 0.0f}, {3.0f, 3.0f}, {5.0f, 0.0f, 64.0f, 97.0f}}, {}, scene.camera},
 		scene{scene},
-		controllable{controllable},
-		idle{idle},
+		animation{animation},
+		controllableVisuals{std::move(controllable)},
 		game{game}
 	{
 	}
@@ -22,62 +31,132 @@ namespace sus::entities
 	{
 		Entity::update();
 
-		constexpr SDL_FPoint speed{3.0f, 10.0f};
-		velocity.y = speed.y;
-
-		if (controllable)
+		if (!lost)
 		{
-			const std::uint8_t *const keyboard{SDL_GetKeyboardState(nullptr)};
+			bool attacking{false};
 
-			if (keyboard[SDL_SCANCODE_A])
-				velocity.x = -speed.x;
-			if (keyboard[SDL_SCANCODE_D])
-				velocity.x = speed.x;
+			const SDL_FRect hitbox{tf.pos.x + tf.bounds.x, tf.pos.y + tf.bounds.y, tf.bounds.w, tf.bounds.h};
+			constexpr SDL_FPoint speed{6.5f, 10.0f};
 
-		}
-		else
-			idle.update(game.ups);
-
-		const SDL_FRect hitbox{pos.x + bounds.x, pos.y + bounds.y, bounds.w, bounds.h};
-		for (const auto &other : scene.entities)
-		{
-			if (other.get() == this)
-				continue;
-
-			const SDL_FRect otherHitbox{other->pos.x + other->bounds.x, other->pos.y + other->bounds.y, other->bounds.w, other->bounds.h};
-			constexpr float ejectDist{0.1f};
-
-			if (hasIntersection({hitbox.x + velocity.x, hitbox.y, hitbox.w, hitbox.h}, otherHitbox))
+			if (controllableVisuals)
 			{
-				const float left{otherHitbox.x + otherHitbox.w - hitbox.x};
-				const float right{hitbox.x + hitbox.w - otherHitbox.x};
+				const std::uint8_t *const keyboard{SDL_GetKeyboardState(nullptr)};
+				timeSinceAttack += 1000.0f / game.ups;
 
-				if (left < right)
-					pos.x += left + ejectDist;
-				else
-					pos.x -= right + ejectDist;
+				if (keyboard[SDL_SCANCODE_A] || keyboard[SDL_SCANCODE_LEFT])
+					tf.velocity.x = -speed.x;
+				if (keyboard[SDL_SCANCODE_D] || keyboard[SDL_SCANCODE_RIGHT])
+					tf.velocity.x = speed.x;
 
-				velocity.x = 0.0f;
+				if (keyboard[SDL_SCANCODE_SPACE] && canAttack)
+				{
+					attacking = true;
+					canAttack = false;
+
+					controllableVisuals->attacking.toBeginning();
+					timeSinceAttack = 0.0f;
+					showAttack = true;
+				}
+				else if (!keyboard[SDL_SCANCODE_SPACE])
+					canAttack = true;
+					
+				scene.camera.pos.y = hitbox.y - hitbox.h / 2;
+				if (scene.camera.pos.y < 0.0f)
+					scene.camera.pos.y = 0.0f;
 			}
 
-			if (hasIntersection({hitbox.x, hitbox.y + velocity.y, hitbox.w, hitbox.h}, otherHitbox))
-			{
-				const float up{otherHitbox.y + otherHitbox.h - hitbox.y};
-				const float down{hitbox.y + hitbox.h - otherHitbox.y};
-				
-				if (up < down)
-					pos.y += up + ejectDist;
-				else
-					pos.y -= down + ejectDist;
+			const SDL_FRect attackRange{hitbox.x, hitbox.y, hitbox.w, hitbox.h + 80.0f};
 
-				velocity.y = 0.0f;
+			if (!attacking)
+			{
+				if (tf.velocity.y < speed.y)
+				{
+					tf.velocity.y += speed.y * 0.35f;
+					if (tf.velocity.y > speed.y)
+						tf.velocity.y = speed.y;
+				}
+			}
+			else
+				tf.velocity.y = 0;
+
+			for (auto &other : scene.entities)
+			{
+				if (other.get() == this)
+					continue;
+
+				const SDL_FRect otherHitbox{other->tf.pos.x + other->tf.bounds.x, other->tf.pos.y + other->tf.bounds.y, other->tf.bounds.w, other->tf.bounds.h};
+				constexpr float ejectDist{0.1f};
+
+				if (hasIntersection({hitbox.x + tf.velocity.x, hitbox.y, hitbox.w, hitbox.h}, otherHitbox))
+				{
+					const float left{otherHitbox.x + otherHitbox.w - hitbox.x};
+					const float right{hitbox.x + hitbox.w - otherHitbox.x};
+
+					if (left < right)
+						tf.pos.x += left + ejectDist;
+					else
+						tf.pos.x -= right + ejectDist;
+
+					tf.velocity.x = 0.0f;
+					if (controllableVisuals)
+						lost = true;
+				}
+
+				if (hasIntersection({hitbox.x, hitbox.y + tf.velocity.y, hitbox.w, hitbox.h}, otherHitbox))
+				{
+					const float up{otherHitbox.y + otherHitbox.h - hitbox.y};
+					const float down{hitbox.y + hitbox.h - otherHitbox.y};
+
+					if (up < down)
+						tf.pos.y += up + ejectDist;
+					else
+						tf.pos.y -= down + ejectDist;
+
+					tf.velocity.y = 0.0f;
+					if (controllableVisuals)
+						lost = true;
+				}
+
+				if (attacking && other->health && hasIntersection(attackRange, otherHitbox))
+				{
+					--other->health.value();
+					attacking = false;
+				}
+			}
+
+			if (timeSinceAttack >= controllableVisuals->attacking.getTimePerFrame() * controllableVisuals->attacking.getFrameCount())
+				showAttack = false;
+			
+			if (showAttack)
+				controllableVisuals->attacking.update(game.ups);
+			else
+				animation.update(game.ups);
+		}
+		else
+		{
+			lostTime += 1000.0f / game.ups;
+			if (lostTime >= 800.0f)
+			{
+				tf.velocity.y = -20.0f;
+				if (lostTime >= 2500.0f)
+				{
+					game.gameStateManager.popBack();
+					game.gameStateManager.emplaceBack<states::GameOverState>();
+				}
 			}
 		}
 	}
 
 	void Player::render(SDL_Renderer *renderer) const noexcept
 	{
-		if (!controllable)
-			idle.render(renderer, getDestination());
+		if (lost && controllableVisuals)
+		{
+			if (static_cast<int>(lostTime) % 4 == 0)
+				SDL_RenderCopyF(renderer, controllableVisuals->spriteSheet, &controllableVisuals->hurtSrc, &getDestination());
+		}
+		else if (showAttack)
+			controllableVisuals->attacking.render(renderer, getDestination());
+		else
+			animation.render(renderer, getDestination());
 	}
 }

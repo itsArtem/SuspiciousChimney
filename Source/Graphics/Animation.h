@@ -8,7 +8,7 @@
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 26812)
+#pragma warning(disable: 26812) // Use of unscoped enum warning. The enum is from an external library, so there's nothing that can be done about it.
 #endif
 
 namespace sus::gfx
@@ -17,9 +17,10 @@ namespace sus::gfx
 	{
 	public:
 		SDL_Texture *spriteSheet{nullptr};
+		bool loop{true};
 
 		Animation() = default;
-		Animation(SDL_Texture *spriteSheet, int frameCount, SDL_Rect start, float timePerFrame) noexcept;
+		Animation(SDL_Texture *spriteSheet, int frameCount, SDL_Rect start, float timePerFrame, bool loop) noexcept;
 
 		void update(int ups) noexcept;
 		void render(SDL_Renderer *renderer, const SDL_FRect &dst, double angle = 0.0, std::optional<SDL_FPoint> centre = {}, SDL_RendererFlip flip = SDL_FLIP_NONE) const noexcept
@@ -42,6 +43,9 @@ namespace sus::gfx
 			assert(timePerFrame > 0.0f && "Time per frame cannot be negative.");
 			this->timePerFrame = timePerFrame;
 		}
+
+		bool isAtEnd() const noexcept { return src.x >= end; }
+		void toBeginning() noexcept { src.x = start; }
 
 	private:
 		int frameCount{0};

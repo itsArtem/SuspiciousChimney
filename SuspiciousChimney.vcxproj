@@ -174,11 +174,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Entities\Chimney.cpp" />
-    <ClCompile Include="Source\Entities\Entitiy.cpp" />
+    <ClCompile Include="Source\Entities\Entity.cpp" />
+    <ClCompile Include="Source\Entities\Hostiles.cpp" />
     <ClCompile Include="Source\Entities\Player.cpp" />
     <ClCompile Include="Source\Entities\Roof.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameStates\CutsceneState.cpp" />
+    <ClCompile Include="Source\GameStates\GameOverState.cpp" />
+    <ClCompile Include="Source\GameStates\GameplayState.cpp" />
     <ClCompile Include="Source\GameStates\GameState.cpp" />
     <ClCompile Include="Source\GameStates\GameStateManager.cpp" />
     <ClCompile Include="Source\Graphics\Animation.cpp" />
@@ -199,11 +202,14 @@
   <ItemGroup>
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\Entities\Chimney.h" />
-    <ClInclude Include="Source\Entities\Entitiy.h" />
+    <ClInclude Include="Source\Entities\Entity.h" />
+    <ClInclude Include="Source\Entities\Hostiles.h" />
     <ClInclude Include="Source\Entities\Player.h" />
     <ClInclude Include="Source\Entities\Roof.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameStates\CutsceneState.h" />
+    <ClInclude Include="Source\GameStates\GameOverState.h" />
+    <ClInclude Include="Source\GameStates\GameplayState.h" />
     <ClInclude Include="Source\GameStates\GameState.h" />
     <ClInclude Include="Source\GameStates\GameStateManager.h" />
     <ClInclude Include="Source\Graphics\Animation.h" />
@@ -214,6 +220,7 @@
     <ClInclude Include="Source\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\ChimneyInside.png" />
     <Image Include="Resources\Snow.png" />
     <Image Include="Resources\SpriteSheet.png" />
   </ItemGroup>

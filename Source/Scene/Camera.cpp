@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "../Entities/Entitiy.h"
+#include "../Entities/Entity.h"
 #include "../Game.h"
 
 #include <SDL_video.h>
@@ -14,10 +14,23 @@ namespace sus::scene
 	
 	void Camera::centre(const entities::Entity &entity) noexcept
 	{
-		SDL_Point windowSize;
-		SDL_GetWindowSize(game.getWindow(), &windowSize.x, &windowSize.y);
+		centreHorizontally(entity);
+		centreVertically(entity);
+	}
+	
+	void Camera::centreHorizontally(const entities::Entity &entity) noexcept
+	{
+		int windowWidth;
+		SDL_GetWindowSize(game.getWindow(), &windowWidth, nullptr);
 
-		pos.x = entity.pos.x + entity.size.x / 2 - windowSize.x / 2;
-		pos.y = entity.pos.y + entity.size.y / 2 - windowSize.y / 2;
+		pos.x = entity.tf.pos.x + entity.tf.size.x / 2 - windowWidth / 2;
+	}
+	
+	void Camera::centreVertically(const entities::Entity &entity) noexcept
+	{
+		int windowHeight;
+		SDL_GetWindowSize(game.getWindow(), nullptr, &windowHeight);
+
+		pos.y = entity.tf.pos.y + entity.tf.size.y / 2 - windowHeight / 2;
 	}
 }

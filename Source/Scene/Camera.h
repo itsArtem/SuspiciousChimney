@@ -25,6 +25,8 @@ namespace sus::scene
 		Camera(const Game &game, const SDL_FPoint &pos) noexcept;
 
 		void centre(const entities::Entity &entity) noexcept;
+		void centreHorizontally(const entities::Entity &entity) noexcept;
+		void centreVertically(const entities::Entity &entity) noexcept;
 
 	private:
 		const Game &game;

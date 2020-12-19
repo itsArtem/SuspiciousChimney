@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entitiy.h"
+#include "Entity.h"
 
 #include <SDL_render.h>
 #include <SDL_rect.h>

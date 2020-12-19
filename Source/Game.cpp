@@ -41,7 +41,7 @@ namespace sus
 		window.reset(SDL_CreateWindow("Suspicious Chimney", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN));
 		renderer.reset(SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED));
 
-		gameStateManager.emplaceBack(std::make_unique<states::CutsceneState>(*this));
+		gameStateManager.emplaceBack<states::CutsceneState>(*this);
 	}
 
 	void Game::update() noexcept

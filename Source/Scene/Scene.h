@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Camera.h"
-#include "../Entities/Entitiy.h"
+#include "../Entities/Entity.h"
 
 #include <SDL_rect.h>
 

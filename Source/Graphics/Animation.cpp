@@ -2,8 +2,9 @@
 
 namespace sus::gfx
 {
-	Animation::Animation(SDL_Texture *spriteSheet, int frameCount, SDL_Rect start, float timePerFrame) noexcept
+	Animation::Animation(SDL_Texture *spriteSheet, int frameCount, SDL_Rect start, float timePerFrame, bool loop) noexcept
 		: spriteSheet{spriteSheet},
+		loop{loop},
 		frameCount{frameCount},
 		src{start},
 		timePerFrame{timePerFrame}
@@ -15,6 +16,9 @@ namespace sus::gfx
 
 	void Animation::update(int ups) noexcept
 	{
+		if (!loop && src.x >= end)
+			return;
+
 		timePassed += 1000.0f / ups;
 		if (timePassed < timePerFrame)
 			return;

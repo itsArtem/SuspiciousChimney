@@ -7,7 +7,6 @@
     <ClCompile Include="Source\GameStates\GameStateManager.cpp" />
     <ClCompile Include="Source\GameStates\CutsceneState.cpp" />
     <ClCompile Include="Source\Graphics\TextureCache.cpp" />
-    <ClCompile Include="Source\Entities\Entitiy.cpp" />
     <ClCompile Include="Source\Scene\Scene.cpp" />
     <ClCompile Include="Source\Scene\Camera.cpp" />
     <ClCompile Include="Source\Entities\Player.cpp" />
@@ -15,6 +14,10 @@
     <ClCompile Include="Source\Entities\Chimney.cpp" />
     <ClCompile Include="Source\Graphics\Animation.cpp" />
     <ClCompile Include="Source\Graphics\SnowScreen.cpp" />
+    <ClCompile Include="Source\GameStates\GameplayState.cpp" />
+    <ClCompile Include="Source\Entities\Entity.cpp" />
+    <ClCompile Include="Source\Entities\Hostiles.cpp" />
+    <ClCompile Include="Source\GameStates\GameOverState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -27,7 +30,6 @@
     <ClInclude Include="Source\GameStates\GameStateManager.h" />
     <ClInclude Include="Source\GameStates\CutsceneState.h" />
     <ClInclude Include="Source\Graphics\TextureCache.h" />
-    <ClInclude Include="Source\Entities\Entitiy.h" />
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\Scene\Camera.h" />
     <ClInclude Include="Source\Entities\Player.h" />
@@ -37,9 +39,14 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Graphics\Animation.h" />
     <ClInclude Include="Source\Graphics\SnowScreen.h" />
+    <ClInclude Include="Source\GameStates\GameplayState.h" />
+    <ClInclude Include="Source\Entities\Entity.h" />
+    <ClInclude Include="Source\Entities\Hostiles.h" />
+    <ClInclude Include="Source\GameStates\GameOverState.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SpriteSheet.png" />
     <Image Include="Resources\Snow.png" />
+    <Image Include="Resources\ChimneyInside.png" />
   </ItemGroup>
 </Project>

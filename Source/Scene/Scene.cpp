@@ -2,6 +2,8 @@
 #include "../Game.h"
 #include "../Debug.h"
 
+#include <iterator>
+
 namespace sus::scene
 {
 	Scene::Scene(const Game &game) noexcept
@@ -12,8 +14,14 @@ namespace sus::scene
 	
 	void Scene::update() noexcept
 	{
-		for (auto &entity : entities)
-			entity->update();
+		for (auto it{entities.begin()}; it != entities.end();)
+		{
+			it->get()->update();
+			if (!it->get()->active)
+				it = entities.erase(it);
+			else
+				++it;
+		}
 	}
 
 	void Scene::render() const noexcept

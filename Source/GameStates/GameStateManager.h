@@ -15,10 +15,10 @@ namespace sus::states
 	public:
 		using SizeType = std::vector<std::unique_ptr<GameState>>::size_type;
 
-		template<typename ...Arg>
+		template<typename T, typename ...Arg>
 		void emplaceBack(Arg &&...args) noexcept
 		{
-			gameStates.emplace_back(std::forward<Arg>(args)...);
+			gameStates.emplace_back(std::make_unique<T>(std::forward<Arg>(args)...));
 		}
 
 		void setOverlay(std::optional<SizeType> index) noexcept { overlayIndex = index; }
