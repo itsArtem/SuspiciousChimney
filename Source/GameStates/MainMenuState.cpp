@@ -11,6 +11,12 @@
 
 namespace sus::states
 {
+	MainMenuState::MainMenuState(Game &game) noexcept
+		: game{game}
+	{
+		Mix_PlayMusic(game.audioCache.getMusic(0), -1);
+	}
+	
 	void MainMenuState::update() noexcept
 	{
 		if (!quit)
@@ -27,6 +33,8 @@ namespace sus::states
 
 			if (buttons[0].wasReleased())
 			{
+				Mix_HaltMusic();
+
 				game.gameStateManager.popBack();
 				game.gameStateManager.emplaceBack<states::CutsceneState>(game);
 				Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);

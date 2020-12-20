@@ -18,8 +18,8 @@ namespace sus::states
 	{
 	public:
 		std::int32_t score{0};
-		int special{20};
-		const int maxSpecial{0};
+		int special{0};
+		const int maxSpecial{30};
 
 		GameplayState(Game &game) noexcept;
 

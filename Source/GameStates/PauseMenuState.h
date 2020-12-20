@@ -15,8 +15,7 @@ namespace sus::states
 	class PauseMenuState final : public GameState
 	{
 	public:
-		PauseMenuState(Game &game) noexcept
-			: game{game} { }
+		PauseMenuState(Game &game) noexcept;
 
 		void update() noexcept override;
 		void render() const noexcept override;

@@ -47,10 +47,15 @@ namespace sus
 		textureCache.load("Resources/Textures/ChimneyInside.png", renderer.get());
 		textureCache.load("Resources/Textures/Logo.png", renderer.get());
 		
-		fontCache.open("Resources/Font.ttf", 32);
-		fontCache.open("Resources/Font.ttf", 42);
-		fontCache.open("Resources/Font.ttf", 29);
-		fontCache.open("Resources/Font.ttf", 32);
+		fontCache.open("Resources/Font.ttf", 32); // Bold
+		fontCache.open("Resources/Font.ttf", 42); // Bold
+		fontCache.open("Resources/Font.ttf", 28); // Normal
+		fontCache.open("Resources/Font.ttf", 32); // Bold + Underline
+		fontCache.open("Resources/Font.ttf", 32); // Normal
+
+		TTF_SetFontStyle(fontCache[0], TTF_STYLE_BOLD);
+		TTF_SetFontStyle(fontCache[1], TTF_STYLE_BOLD);
+		TTF_SetFontStyle(fontCache[3], TTF_STYLE_BOLD | TTF_STYLE_UNDERLINE);
 
 		audioCache.loadChunk("Resources/Audio/Attack.wav");
 		audioCache.loadChunk("Resources/Audio/GameOver.wav");
@@ -62,9 +67,8 @@ namespace sus
 		audioCache.loadChunk("Resources/Audio/SpecialAttack.wav");
 		audioCache.loadChunk("Resources/Audio/Hit.wav");
 		
-		TTF_SetFontStyle(fontCache[0], TTF_STYLE_BOLD);
-		TTF_SetFontStyle(fontCache[1], TTF_STYLE_BOLD);
-		TTF_SetFontStyle(fontCache[3], TTF_STYLE_BOLD | TTF_STYLE_UNDERLINE);
+		audioCache.loadMusic("Resources/Audio/MenuTrack.mid");
+		audioCache.loadMusic("Resources/Audio/GameplayTrack.mid");
 
 		gameStateManager.emplaceBack<states::MainMenuState>(*this);
 	}

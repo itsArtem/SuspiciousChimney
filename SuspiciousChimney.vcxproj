@@ -209,6 +209,8 @@
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include="README.md" />
+    <None Include="Resources\Audio\GameplayTrack.mid" />
+    <None Include="Resources\Audio\MenuTrack.mid" />
     <None Include="Resources\Highscore.sav" />
   </ItemGroup>
   <ItemGroup>

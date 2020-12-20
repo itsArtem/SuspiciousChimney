@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0
 		|| IMG_Init(IMG_INIT_PNG) == 0
 		|| TTF_Init() == -1
-		|| Mix_Init(MIX_INIT_OGG) == 0
+		|| Mix_Init(MIX_INIT_MID) == 0
 		|| Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) == 1)
 		status = 1;
 	else

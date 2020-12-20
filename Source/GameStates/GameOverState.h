@@ -36,6 +36,6 @@ namespace sus::states
 		gfx::Text highscoreMsg{"Highscore: ", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
 		gfx::Text highscore;
 
-		gfx::Text msg{"Santa will be back for revenge!", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
+		gfx::Text msg{"Santa will be back for revenge!", game.fontCache[4], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
 	};
 }

@@ -16,8 +16,7 @@ namespace sus::states
 	class MainMenuState final : public GameState
 	{
 	public:
-		MainMenuState(Game &game) noexcept
-			: game{game} { }
+		MainMenuState(Game &game) noexcept;
 
 		void update() noexcept override;
 		void render() const noexcept override;

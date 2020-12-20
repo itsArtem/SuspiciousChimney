@@ -28,6 +28,7 @@ namespace sus::states
 			game));
 
 		scene.entities.emplace_back(std::make_unique<entities::Roof>(SDL_FPoint{0.0f, 350.0f}, game.textureCache[0], SDL_Rect{0, 80, 128, 40}, scene.camera));
+		Mix_PlayMusic(game.audioCache.getMusic(1), -1);
 	}
 
 	void states::CutsceneState::update() noexcept

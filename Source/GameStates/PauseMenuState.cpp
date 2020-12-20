@@ -10,6 +10,12 @@
 
 namespace sus::states
 {
+	PauseMenuState::PauseMenuState(Game &game) noexcept
+		: game{game}
+	{
+		Mix_PauseMusic();
+	}
+	
 	void PauseMenuState::update() noexcept
 	{
 		for (gfx::Button &button : buttons)
@@ -25,7 +31,9 @@ namespace sus::states
 		if (buttons[0].wasReleased())
 		{
 			game.gameStateManager.popBack();
+			
 			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+			Mix_ResumeMusic();
 		}
 		else if (buttons[1].wasReleased())
 		{
@@ -34,6 +42,8 @@ namespace sus::states
 		}
 		else if (buttons[2].wasReleased())
 		{
+			Mix_HaltMusic();
+		
 			game.gameStateManager.popBack();
 			game.gameStateManager.emplaceBack<states::MainMenuState>(game);
 			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
