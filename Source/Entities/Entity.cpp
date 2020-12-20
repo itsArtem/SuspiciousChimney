@@ -10,6 +10,13 @@ namespace sus::entities
 		bounds{bounds}
 	{
 	}
+
+	Entity::Properties::Properties(bool despawnOnCollision, ConsumableType consumable, std::optional<int> health) noexcept
+		: despawnOnCollision{despawnOnCollision},
+		consumable{consumable},
+		health{health}
+	{
+	}
 	
 	void Entity::update() noexcept
 	{
@@ -43,9 +50,9 @@ namespace sus::entities
 			if (tf.velocity.y < 0.0f)
 				tf.velocity.y = 0.0f;
 		}
-
-		if (health && health.value() <= 0)
-			active = false;
+		
+		if (properties.health && *properties.health <= 0)
+			remove();
 	}
 
 #if SUS_ENTITIES_SHOW_HITBOX
@@ -58,9 +65,9 @@ namespace sus::entities
 	}
 #endif
 
-	Entity::Entity(const Transform &tf, std::optional<int> health, const scene::Camera &camera) noexcept
+	Entity::Entity(const Transform &tf, Properties properties, const scene::Camera &camera) noexcept
 		: tf{tf},
-		health{health},
+		properties{properties},
 		camera{camera}
 	{
 	}

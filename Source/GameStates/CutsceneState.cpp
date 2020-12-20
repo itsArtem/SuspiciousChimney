@@ -19,7 +19,8 @@ namespace sus::states
 		scene.entities.emplace_back(std::make_unique<entities::Player>(SDL_FPoint{300.0f, 248.0f}, 
 			gfx::Animation{game.textureCache[0], 2, {0, 0, 16, 23}, 350.0f, true},
 			std::optional<entities::Player::ControllableVisuals>{},
-			scene, 
+			scene,
+			nullptr,
 			game));
 
 		scene.entities.emplace_back(std::make_unique<entities::Roof>(SDL_FPoint{0.0f, 350.0f}, game.textureCache[0], SDL_Rect{0, 80, 128, 40}, scene.camera));

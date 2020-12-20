@@ -3,7 +3,7 @@
 namespace sus::entities
 {
 	Chimney::Chimney(const SDL_FPoint &pos, SDL_Texture *texture, const SDL_Rect &cellSrc, SDL_Rect &tipSrc, const scene::Camera &camera, int length, const SDL_FPoint &tipSize) noexcept
-		: Entity{{pos, {128.0f, 96.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, -96.0f * (length - 1) - tipSize.y, 128.0f, 96.0f * length + tipSize.y}}, {}, camera},
+		: Entity{{pos, {128.0f, 96.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, -96.0f * (length - 1) - tipSize.y, 128.0f, 96.0f * length + tipSize.y}}, {false, ConsumableType::none, {}}, camera},
 		texture{texture},
 		cellSrc{cellSrc},
 		tipSrc{tipSrc},

@@ -10,6 +10,11 @@
 
 namespace sus::entities
 {
+	enum class ConsumableType
+	{
+		none, special, health
+	};
+
 	class Entity
 	{
 	public:
@@ -27,9 +32,21 @@ namespace sus::entities
 			Transform(const SDL_FPoint &pos, const SDL_FPoint &size, const SDL_FPoint &velocity, const SDL_FPoint &friction, const SDL_FRect &bounds) noexcept;
 		};
 
+		struct Properties final
+		{
+			bool despawnOnCollision{false};
+			ConsumableType consumable;
+			
+			std::optional<int> health;
+			const int maxHealth{health.value_or(0)};
+
+			Properties() = default;
+			Properties(bool despawnOnCollision, ConsumableType consumable, std::optional<int> health) noexcept;
+		};
 
 		Transform tf;
-		std::optional<int> health;
+		Properties properties;
+
 		bool active{true};
 
 		virtual Entity::~Entity() = default;
@@ -46,13 +63,15 @@ namespace sus::entities
 		}
 
 	protected:
-		Entity(const Transform &tf, std::optional<int> health, const scene::Camera &camera) noexcept;
+		Entity(const Transform &tf, Properties properties, const scene::Camera &camera) noexcept;
 
 		Entity(const Entity &other) = default;
 		Entity(Entity &&other) = default;
 		
 		Entity &operator =(const Entity &other) = default;
 		Entity &operator =(Entity && other) = default;
+
+		virtual void remove() noexcept { active = false; }
 
 	private:
 		const scene::Camera &camera;

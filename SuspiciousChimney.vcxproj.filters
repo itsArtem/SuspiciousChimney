@@ -18,6 +18,7 @@
     <ClCompile Include="Source\Entities\Entity.cpp" />
     <ClCompile Include="Source\Entities\Hostiles.cpp" />
     <ClCompile Include="Source\GameStates\GameOverState.cpp" />
+    <ClCompile Include="Source\Entities\Consumable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Source\Entities\Entity.h" />
     <ClInclude Include="Source\Entities\Hostiles.h" />
     <ClInclude Include="Source\GameStates\GameOverState.h" />
+    <ClInclude Include="Source\Entities\Consumable.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SpriteSheet.png" />

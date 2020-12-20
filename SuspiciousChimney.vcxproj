@@ -178,6 +178,7 @@
     <ClCompile Include="Source\Entities\Hostiles.cpp" />
     <ClCompile Include="Source\Entities\Player.cpp" />
     <ClCompile Include="Source\Entities\Roof.cpp" />
+    <ClCompile Include="Source\Entities\Consumable.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameStates\CutsceneState.cpp" />
     <ClCompile Include="Source\GameStates\GameOverState.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Source\Entities\Hostiles.h" />
     <ClInclude Include="Source\Entities\Player.h" />
     <ClInclude Include="Source\Entities\Roof.h" />
+    <ClInclude Include="Source\Entities\Consumable.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameStates\CutsceneState.h" />
     <ClInclude Include="Source\GameStates\GameOverState.h" />
