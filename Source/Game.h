@@ -2,6 +2,7 @@
 
 #include "GameStates/GameStateManager.h"
 #include "Graphics/TextureCache.h"
+#include "Graphics/FontCache.h"
 
 #include <SDL_video.h>
 #include <SDL_render.h>
@@ -17,6 +18,7 @@ namespace sus
 		
 		states::GameStateManager gameStateManager;
 		gfx::TextureCache textureCache;
+		gfx::FontCache fontCache;
 
 		void run() noexcept;
 		void terminate() noexcept { running = false; }

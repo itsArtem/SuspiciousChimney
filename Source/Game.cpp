@@ -1,8 +1,9 @@
 #include "Game.h"
-#include "GameStates/CutsceneState.h"
+#include "GameStates/MainMenuState.h"
 #include "Utility.h"
 
 #include <SDL_events.h>
+#include <SDL_ttf.h>
 
 #include <chrono>
 
@@ -40,8 +41,22 @@ namespace sus
 	{
 		window.reset(SDL_CreateWindow("Suspicious Chimney", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN));
 		renderer.reset(SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED));
+		
+		textureCache.load("Resources/Textures/SpriteSheet.png", renderer.get());
+		textureCache.load("Resources/Textures/Snow.png", renderer.get());
+		textureCache.load("Resources/Textures/ChimneyInside.png", renderer.get());
+		textureCache.load("Resources/Textures/Logo.png", renderer.get());
+		
+		fontCache.open("Resources/Font.ttf", 32);
+		fontCache.open("Resources/Font.ttf", 42);
+		fontCache.open("Resources/Font.ttf", 29);
+		fontCache.open("Resources/Font.ttf", 32);
+		
+		TTF_SetFontStyle(fontCache[0], TTF_STYLE_BOLD);
+		TTF_SetFontStyle(fontCache[1], TTF_STYLE_BOLD);
+		TTF_SetFontStyle(fontCache[3], TTF_STYLE_BOLD | TTF_STYLE_UNDERLINE);
 
-		gameStateManager.emplaceBack<states::CutsceneState>(*this);
+		gameStateManager.emplaceBack<states::MainMenuState>(*this);
 	}
 
 	void Game::update() noexcept

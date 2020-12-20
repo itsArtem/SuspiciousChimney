@@ -4,6 +4,7 @@
 #include "../Entities/Roof.h"
 #include "../Graphics/Animation.h"
 #include "../GameStates/GameplayState.h"
+#include "../GameStates/PauseMenuState.h"
 
 #include <SDL_render.h>
 #include <SDL_keyboard.h>
@@ -16,7 +17,7 @@ namespace sus::states
 	CutsceneState::CutsceneState(Game &game) noexcept
 		: game{game}
 	{
-		scene.entities.emplace_back(std::make_unique<entities::Player>(SDL_FPoint{300.0f, 248.0f}, 
+		scene.entities.emplace_back(std::make_unique<entities::Player>(SDL_FPoint{300.0f, 248.0f},
 			gfx::Animation{game.textureCache[0], 2, {0, 0, 16, 23}, 350.0f, true},
 			std::optional<entities::Player::ControllableVisuals>{},
 			scene,
@@ -29,6 +30,14 @@ namespace sus::states
 	void states::CutsceneState::update() noexcept
 	{
 		const std::uint8_t *keyboard{SDL_GetKeyboardState(nullptr)};
+		if (keyboard[SDL_SCANCODE_ESCAPE])
+			pressedPause = true;
+		else if (!keyboard[SDL_SCANCODE_ESCAPE] && pressedPause)
+		{
+			game.gameStateManager.emplaceBack<states::PauseMenuState>(game);
+			pressedPause = false;
+		}
+
 		if (keyboard[SDL_SCANCODE_SPACE])
 			pressedSkip = true;
 		else if (pressedSkip)
@@ -58,6 +67,11 @@ namespace sus::states
 
 			if (timePassed >= 10.0f)
 				startGame();
+
+			if (static_cast<int>(skipMsg.mod.a) - 5 > 0)
+				skipMsg.mod.a -= 5;
+			else
+				skipMsg.mod.a = 0;
 		}
 
 		backgroundSnow.update();
@@ -74,8 +88,15 @@ namespace sus::states
 		backgroundSnow.render(renderer);
 		scene.render();
 		foregroundSnow.render(renderer, SDL_FLIP_HORIZONTAL);
+
+		if (skipMsg.mod.a > 0)
+		{
+			SDL_Point windowSize;
+			SDL_GetWindowSize(game.getWindow(), &windowSize.x, &windowSize.y);
+			skipMsg.render({windowSize.x - skipMsg.getSize().x + 0.0f, windowSize.y - skipMsg.getSize().y + 0.0f});
+		}
 	}
-	
+
 	void CutsceneState::startGame() const noexcept
 	{
 		game.gameStateManager.popBack();

@@ -10,7 +10,7 @@ namespace sus::gfx
 	{
 		SDL_Texture *const texture = IMG_LoadTexture(renderer, path.data());
 		if (!texture)
-			throw std::runtime_error{"Could not load texture."};
+			throw std::runtime_error{SDL_GetError()};
 		textures.emplace_back(texture, SDL_DestroyTexture);
 		return texture;
 	}

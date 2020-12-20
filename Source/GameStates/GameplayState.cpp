@@ -5,14 +5,26 @@
 #include "../Entities/Hostiles.h"
 #include "../Entities/Consumable.h"
 #include "../Utility.h"
+#include "../GameStates/PauseMenuState.h"
 
 #include <SDL_video.h>
+#include <SDL_keyboard.h>
+#include <SDL_scancode.h>
 
 namespace sus::states
 {
 	GameplayState::GameplayState(Game &game) noexcept
 		: game{game}
 	{
+		if (stream.is_open())
+			stream.read(reinterpret_cast<char *>(&highscore), sizeof(std::int32_t));
+		else
+		{
+			stream.open("Resources/Highscore.sav", std::fstream::out | std::fstream::trunc | std::fstream::binary);
+			stream.write(reinterpret_cast<const char *>(&highscore), sizeof(std::int32_t));
+		}
+		stream.close();
+
 		scene.entities.emplace_back(std::make_unique<entities::Player>(SDL_FPoint{chimneyPos + chimneySize.x / 2 - 55.0f, 0.0f},
 			gfx::Animation{game.textureCache[0], 2, {32, 0, 16, 24}, 250.0f, true},
 			entities::Player::ControllableVisuals{
@@ -26,6 +38,15 @@ namespace sus::states
 
 	void GameplayState::update() noexcept
 	{
+		const std::uint8_t *const keyboard{SDL_GetKeyboardState(nullptr)};
+		if (keyboard[SDL_SCANCODE_ESCAPE])
+			pressedPause = true;
+		else if (!keyboard[SDL_SCANCODE_ESCAPE] && pressedPause)
+		{
+			game.gameStateManager.emplaceBack<states::PauseMenuState>(game);
+			pressedPause = false;
+		}
+
 		snow.update();
 		entities::Entity &player = *scene.entities[0];
 		
@@ -131,6 +152,14 @@ namespace sus::states
 
 		if (special > maxSpecial)
 			special = maxSpecial;
+
+		if (score > highscore)
+		{
+			highscore = score;
+			stream.open("Resources/Highscore.sav", std::fstream::out | std::fstream::trunc | std::fstream::binary);
+			stream.write(reinterpret_cast<const char *>(&highscore), sizeof(std::int32_t));
+			stream.close();
+		}
 	}
 
 	void GameplayState::render() const noexcept
@@ -143,8 +172,8 @@ namespace sus::states
 
 		const SDL_FRect firstDst{chimneyPos - scene.camera.pos.x, chimneySize.y * levelsTravelled - scene.camera.pos.y, chimneySize.x, chimneySize.y};
 		const SDL_FRect secondDst{firstDst.x, chimneySize.y * (levelsTravelled + 1) - scene.camera.pos.y, firstDst.w, firstDst.h};
-		SDL_RenderCopyF(renderer, chimney, nullptr, &firstDst);
-		SDL_RenderCopyF(renderer, chimney, nullptr, &secondDst);
+		SDL_RenderCopyF(renderer, game.textureCache[2], nullptr, &firstDst);
+		SDL_RenderCopyF(renderer, game.textureCache[2], nullptr, &secondDst);
 
 		scene.render();
 

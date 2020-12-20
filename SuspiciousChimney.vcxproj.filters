@@ -19,11 +19,19 @@
     <ClCompile Include="Source\Entities\Hostiles.cpp" />
     <ClCompile Include="Source\GameStates\GameOverState.cpp" />
     <ClCompile Include="Source\Entities\Consumable.cpp" />
+    <ClCompile Include="Source\Graphics\FontCache.cpp" />
+    <ClCompile Include="Source\Graphics\Text.cpp" />
+    <ClCompile Include="Source\GameStates\MainMenuState.cpp" />
+    <ClCompile Include="Source\Graphics\Button.cpp" />
+    <ClCompile Include="Source\GameStates\HowToPlayState.cpp" />
+    <ClCompile Include="Source\GameStates\AboutState.cpp" />
+    <ClCompile Include="Source\GameStates\PauseMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
     <None Include=".gitignore" />
     <None Include="LICENSE" />
+    <None Include="Resources\Highscore.sav" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h" />
@@ -45,10 +53,21 @@
     <ClInclude Include="Source\Entities\Hostiles.h" />
     <ClInclude Include="Source\GameStates\GameOverState.h" />
     <ClInclude Include="Source\Entities\Consumable.h" />
+    <ClInclude Include="Source\Graphics\Text.h" />
+    <ClInclude Include="Source\Graphics\FontCache.h" />
+    <ClInclude Include="Source\Graphics\Button.h" />
+    <ClInclude Include="Source\GameStates\MainMenuState.h" />
+    <ClInclude Include="Source\GameStates\HowToPlayState.h" />
+    <ClInclude Include="Source\GameStates\AboutState.h" />
+    <ClInclude Include="Source\GameStates\PauseMenuState.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\SpriteSheet.png" />
-    <Image Include="Resources\Snow.png" />
-    <Image Include="Resources\ChimneyInside.png" />
+    <Font Include="Resources\Font.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\ChimneyInside.png" />
+    <Image Include="Resources\Textures\SpriteSheet.png" />
+    <Image Include="Resources\Textures\Snow.png" />
+    <Image Include="Resources\Textures\Logo.png" />
   </ItemGroup>
 </Project>

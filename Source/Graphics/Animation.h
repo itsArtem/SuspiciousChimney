@@ -23,7 +23,7 @@ namespace sus::gfx
 		Animation(SDL_Texture *spriteSheet, int frameCount, SDL_Rect start, float timePerFrame, bool loop) noexcept;
 
 		void update(int ups) noexcept;
-		void render(SDL_Renderer *renderer, const SDL_FRect &dst, double angle = 0.0, std::optional<SDL_FPoint> centre = {}, SDL_RendererFlip flip = SDL_FLIP_NONE) const noexcept
+		void render(SDL_Renderer *renderer, const SDL_FRect &dst, double angle = 0.0, const std::optional<SDL_FPoint> &centre = {}, SDL_RendererFlip flip = SDL_FLIP_NONE) const noexcept
 		{
 			SDL_RenderCopyExF(renderer, spriteSheet, &src, &dst, angle, (centre ? &centre.value() : nullptr), flip);
 		}

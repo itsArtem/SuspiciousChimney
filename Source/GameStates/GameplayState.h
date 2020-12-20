@@ -9,13 +9,15 @@
 #include <SDL_rect.h>
 
 #include <random>
+#include <fstream>
+#include <cstdint>
 
 namespace sus::states
 {
 	class GameplayState final : public GameState
 	{
 	public:
-		int score{0};
+		std::int32_t score{0};
 		int special{0};
 		const int maxSpecial{100};
 
@@ -26,6 +28,7 @@ namespace sus::states
 
 		// Done this way to control when memory for the entity vector is reallocated.
 		void spawnSpecial(const SDL_FPoint &pos) noexcept { specialPositions.emplace_back(pos); }
+		std::int32_t getHighscore() const noexcept { return highscore; }
 
 	private:
 		Game &game;
@@ -35,8 +38,7 @@ namespace sus::states
 		const float borderSize{9.0f};
 
 		gfx::SnowScreen snow{game.textureCache[1], {0.0f, 0.0f, 1600.0f, 1600.0f}, {0.01f, 1.3f}};
-		SDL_Texture *const chimney{game.textureCache.load("Resources/ChimneyInside.png", game.getRenderer())};
-
+		
 		std::random_device device;
 		std::default_random_engine engine{device()};
 		std::uniform_int_distribution<int> spawnTypes{0, 6};
@@ -47,7 +49,8 @@ namespace sus::states
 		const int initialSpawnChance{50};
 		int difficulty{0};
 
-		int lastMilestone{0};
+		std::int32_t highscore{0};
+		std::int32_t lastMilestone{0};
 		int lastLevelsTravelled{0};
 
 		const SDL_Rect specialIconSrc{0, 128, 8, 8};
@@ -55,6 +58,9 @@ namespace sus::states
 
 		const SDL_FRect specialMetreDst{50.0f, 10.0f, 700.0f, 32.0f};
 		std::vector<SDL_FPoint> specialPositions;
+
+		std::fstream stream{"Resources/Highscore.sav", std::fstream::in | std::fstream::binary};
+		bool pressedPause{false};
 
 		void verifyPos(entities::Entity &entity) noexcept;
 	};

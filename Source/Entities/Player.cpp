@@ -5,6 +5,7 @@
 #include "../GameStates/GameOverState.h"
 
 #include <SDL_keyboard.h>
+#include <SDL_scancode.h>
 
 #include <cstdint>
 
@@ -212,13 +213,13 @@ namespace sus::entities
 		{
 			for (int i = 0; i < *properties.health; ++i)
 			{
-				const SDL_FRect healthDst{dst.x + 18 * i, dst.y - 18.0f, 18.0f, 18.0f};
+				const SDL_FRect healthDst{(dst.x + 6) + 18 * i, dst.y - 18.0f, 18.0f, 18.0f};
 				SDL_RenderCopyF(renderer, controllableVisuals->spriteSheet, &controllableVisuals->healthSrc, &healthDst);
 			}
 
 			for (int i = 0; i < properties.maxHealth - *properties.health; ++i)
 			{
-				const SDL_FRect healthDst{dst.x + 18 * properties.maxHealth - 18 * i - 18, dst.y - 18.0f, 18.0f, 18.0f};
+				const SDL_FRect healthDst{(dst.x + 6) + 18 * properties.maxHealth - 18 * i - 18, dst.y - 18.0f, 18.0f, 18.0f};
 				SDL_RenderCopyF(renderer, controllableVisuals->spriteSheet, &controllableVisuals->lostHealthSrc, &healthDst);
 			}
 		}
@@ -254,7 +255,7 @@ namespace sus::entities
 			if (hurtTimer >= hurtTime * 2)
 			{
 				game.gameStateManager.popBack();
-				game.gameStateManager.emplaceBack<states::GameOverState>();
+				game.gameStateManager.emplaceBack<states::GameOverState>(game, gameplayState->score, gameplayState->getHighscore());
 			}
 		}
 		else

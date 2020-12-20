@@ -103,12 +103,13 @@
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\;$(SolutionDir)Dependencies\Sdl2ttf\lib\x86\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,7 +117,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SUS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
@@ -125,8 +126,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\;$(SolutionDir)Dependencies\Sdl2Ttf\lib\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,21 +141,22 @@
       <StringPooling>true</StringPooling>
       <AdditionalOptions>/MT %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\;$(SolutionDir)Dependencies\Sdl2ttf\lib\x86\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -168,8 +170,8 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\;$(SolutionDir)Dependencies\Sdl2Ttf\lib\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -180,13 +182,20 @@
     <ClCompile Include="Source\Entities\Roof.cpp" />
     <ClCompile Include="Source\Entities\Consumable.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\GameStates\AboutState.cpp" />
     <ClCompile Include="Source\GameStates\CutsceneState.cpp" />
     <ClCompile Include="Source\GameStates\GameOverState.cpp" />
     <ClCompile Include="Source\GameStates\GameplayState.cpp" />
     <ClCompile Include="Source\GameStates\GameState.cpp" />
     <ClCompile Include="Source\GameStates\GameStateManager.cpp" />
+    <ClCompile Include="Source\GameStates\HowToPlayState.cpp" />
+    <ClCompile Include="Source\GameStates\MainMenuState.cpp" />
+    <ClCompile Include="Source\GameStates\PauseMenuState.cpp" />
     <ClCompile Include="Source\Graphics\Animation.cpp" />
+    <ClCompile Include="Source\Graphics\Button.cpp" />
+    <ClCompile Include="Source\Graphics\FontCache.cpp" />
     <ClCompile Include="Source\Graphics\SnowScreen.cpp" />
+    <ClCompile Include="Source\Graphics\Text.cpp" />
     <ClCompile Include="Source\Graphics\TextureCache.cpp" />
     <ClCompile Include="Source\Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -199,6 +208,7 @@
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include="README.md" />
+    <None Include="Resources\Highscore.sav" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Debug.h" />
@@ -209,22 +219,33 @@
     <ClInclude Include="Source\Entities\Roof.h" />
     <ClInclude Include="Source\Entities\Consumable.h" />
     <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\GameStates\AboutState.h" />
     <ClInclude Include="Source\GameStates\CutsceneState.h" />
     <ClInclude Include="Source\GameStates\GameOverState.h" />
     <ClInclude Include="Source\GameStates\GameplayState.h" />
     <ClInclude Include="Source\GameStates\GameState.h" />
     <ClInclude Include="Source\GameStates\GameStateManager.h" />
+    <ClInclude Include="Source\GameStates\HowToPlayState.h" />
+    <ClInclude Include="Source\GameStates\MainMenuState.h" />
+    <ClInclude Include="Source\GameStates\PauseMenuState.h" />
     <ClInclude Include="Source\Graphics\Animation.h" />
+    <ClInclude Include="Source\Graphics\Button.h" />
+    <ClInclude Include="Source\Graphics\FontCache.h" />
     <ClInclude Include="Source\Graphics\SnowScreen.h" />
+    <ClInclude Include="Source\Graphics\Text.h" />
     <ClInclude Include="Source\Graphics\TextureCache.h" />
     <ClInclude Include="Source\Scene\Camera.h" />
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\ChimneyInside.png" />
-    <Image Include="Resources\Snow.png" />
-    <Image Include="Resources\SpriteSheet.png" />
+    <Font Include="Resources\Font.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\ChimneyInside.png" />
+    <Image Include="Resources\Textures\Logo.png" />
+    <Image Include="Resources\Textures\Snow.png" />
+    <Image Include="Resources\Textures\SpriteSheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

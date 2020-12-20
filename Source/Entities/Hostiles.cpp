@@ -21,14 +21,14 @@ namespace sus::entities
 	}
 
 	Spikes::Spikes(const SDL_FPoint &pos, SDL_Texture *texture, const SDL_Rect &src, const scene::Camera &camera, states::GameplayState &gameplay) noexcept
-		: Hostile{{pos, {72.0f, 72.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 72.0f, 72.0f}}, {false, ConsumableType::none, 4}, camera, gameplay},
+		: Hostile{{pos, {72.0f, 72.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 72.0f, 72.0f}}, {false, ConsumableType::none, 5}, camera, gameplay},
 		texture{texture},
 		src{src}
 	{
 	}
 	
 	CandyCane::CandyCane(const SDL_FPoint &pos, SDL_Texture *texture, const SDL_Rect &src, const scene::Camera &camera, states::GameplayState &gameplay) noexcept
-		: Hostile{{pos, {80.0f, 128.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 80.0f, 128.0f}}, {false, ConsumableType::none, 4}, camera, gameplay},
+		: Hostile{{pos, {80.0f, 128.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 80.0f, 128.0f}}, {false, ConsumableType::none, 5}, camera, gameplay},
 		texture{texture},
 		src{src}
 	{

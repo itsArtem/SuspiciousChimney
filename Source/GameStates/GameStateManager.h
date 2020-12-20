@@ -18,7 +18,7 @@ namespace sus::states
 		template<typename T, typename ...Arg>
 		void emplaceBack(Arg &&...args) noexcept
 		{
-			gameStates.emplace_back(std::make_unique<T>(std::forward<Arg>(args)...));
+			emplaceQueue.emplace_back(std::make_unique<T>(std::forward<Arg>(args)...));
 		}
 
 		void setOverlay(std::optional<SizeType> index) noexcept { overlayIndex = index; }
@@ -26,21 +26,25 @@ namespace sus::states
 		void remove(SizeType index) noexcept
 		{
 			assert(index < gameStates.size() && "Index out of bounds!");
-			removeIndex = index;
+			removeQueue.emplace_back(index);
 		}
 
 		void popBack() noexcept
 		{
 			assert(!gameStates.empty() && "Cannot pop back an empty game state.");
-			removeIndex = gameStates.size() - 1;
+			removeQueue.emplace_back(gameStates.size() - 1);
 		}
+
+		SizeType getSize() const noexcept { return gameStates.size(); }
 
 		void update() noexcept;
 		void render() const noexcept;
 
 	private:
 		std::vector<std::unique_ptr<GameState>> gameStates;
-		std::optional<SizeType> removeIndex;
+		std::vector<std::unique_ptr<GameState>> emplaceQueue;
+		std::vector<SizeType> removeQueue;
+
 		std::optional<SizeType> overlayIndex;
 	};
 }
