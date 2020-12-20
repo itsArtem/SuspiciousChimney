@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameStates\GameState.cpp" />
     <ClCompile Include="Source\GameStates\GameStateManager.cpp" />
@@ -27,6 +26,7 @@
     <ClCompile Include="Source\GameStates\AboutState.cpp" />
     <ClCompile Include="Source\GameStates\PauseMenuState.cpp" />
     <ClCompile Include="Source\AudioCache.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -35,6 +35,7 @@
     <None Include="Resources\Audio\GameplayTrack.mid" />
     <None Include="Resources\Audio\MenuTrack.mid" />
     <None Include="Resources\Highscore.sav" />
+    <None Include="Resource.aps" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Source\GameStates\AboutState.h" />
     <ClInclude Include="Source\GameStates\PauseMenuState.h" />
     <ClInclude Include="Source\AudioCache.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Font.ttf" />
@@ -73,6 +75,8 @@
     <Image Include="Resources\Textures\SpriteSheet.png" />
     <Image Include="Resources\Textures\Snow.png" />
     <Image Include="Resources\Textures\Logo.png" />
+    <Image Include="icon1.ico" />
+    <Image Include="Resources\Textures\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Resources\Audio\Attack.wav" />
@@ -84,5 +88,8 @@
     <Media Include="Resources\Audio\Orb.wav" />
     <Media Include="Resources\Audio\SpecialAttack.wav" />
     <Media Include="Resources\Audio\SpecialHit.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
 </Project>

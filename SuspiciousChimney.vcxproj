@@ -198,10 +198,7 @@
     <ClCompile Include="Source\Graphics\SnowScreen.cpp" />
     <ClCompile Include="Source\Graphics\Text.cpp" />
     <ClCompile Include="Source\Graphics\TextureCache.cpp" />
-    <ClCompile Include="Source\Main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scene\Camera.cpp" />
     <ClCompile Include="Source\Scene\Scene.cpp" />
   </ItemGroup>
@@ -209,11 +206,13 @@
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include="README.md" />
+    <None Include="Resource.aps" />
     <None Include="Resources\Audio\GameplayTrack.mid" />
     <None Include="Resources\Audio\MenuTrack.mid" />
     <None Include="Resources\Highscore.sav" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\AudioCache.h" />
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\Entities\Chimney.h" />
@@ -246,7 +245,9 @@
     <Font Include="Resources\Font.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="icon1.ico" />
     <Image Include="Resources\Textures\ChimneyInside.png" />
+    <Image Include="Resources\Textures\Icon.ico" />
     <Image Include="Resources\Textures\Logo.png" />
     <Image Include="Resources\Textures\Snow.png" />
     <Image Include="Resources\Textures\SpriteSheet.png" />
@@ -261,6 +262,9 @@
     <Media Include="Resources\Audio\Orb.wav" />
     <Media Include="Resources\Audio\SpecialAttack.wav" />
     <Media Include="Resources\Audio\SpecialHit.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
