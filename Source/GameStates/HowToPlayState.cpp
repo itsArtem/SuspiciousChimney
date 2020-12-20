@@ -1,7 +1,9 @@
 #include "HowToPlayState.h"
 #include "../GameStates/GameStateManager.h"
+#include "../AudioCache.h"
 
 #include <SDL_video.h>
+#include <SDL_mixer.h>
 
 #include <cmath>
 
@@ -19,7 +21,10 @@ namespace sus::states
             back.setColourMod({255, 255, 255, 255});
 
         if (back.wasReleased())
+        {
             game.gameStateManager.popBack();
+            Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+        }
 
         santa.update(game.ups);
         monster.update(game.ups);

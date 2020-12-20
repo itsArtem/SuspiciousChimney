@@ -33,5 +33,7 @@ namespace sus::states
 		
 		gfx::SnowScreen snow{game.textureCache[1], {0.0f, 0.0f, 1600.0f, 1600.0f}, {0.01f, 1.3f}};
 		const SDL_FRect logoDst{208.0f, 10.0f, 384.0f, 192.0f};
+
+		bool quit{false};
 	};
 }

@@ -34,6 +34,7 @@ namespace sus::gfx
 			return true;
 		}
 
+		clicked = false;
 		return false;
 	}
 }

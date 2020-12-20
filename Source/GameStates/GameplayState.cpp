@@ -6,10 +6,12 @@
 #include "../Entities/Consumable.h"
 #include "../Utility.h"
 #include "../GameStates/PauseMenuState.h"
+#include "../AudioCache.h"
 
 #include <SDL_video.h>
 #include <SDL_keyboard.h>
 #include <SDL_scancode.h>
+#include <SDL_mixer.h>
 
 namespace sus::states
 {
@@ -45,6 +47,7 @@ namespace sus::states
 		{
 			game.gameStateManager.emplaceBack<states::PauseMenuState>(game);
 			pressedPause = false;
+			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
 		}
 
 		snow.update();
@@ -182,7 +185,7 @@ namespace sus::states
 		SDL_RenderCopyF(renderer, game.textureCache[0], &specialIconSrc, &specialIconDst);
 	}
 
-	/* Not the most efficient solution, buuutt it's only a 48-hour game lol. */
+	/* Not the most efficient solution, buuutt this is only a quick simple game lol. */
 	void GameplayState::verifyPos(entities::Entity &entity) noexcept
 	{
 		if (entity.tf.pos.x + entity.tf.bounds.x < chimneyPos + borderSize)

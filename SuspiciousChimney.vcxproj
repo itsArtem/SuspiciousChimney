@@ -103,13 +103,13 @@
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\;$(SolutionDir)Dependencies\Sdl2Mixer\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\;$(SolutionDir)Dependencies\Sdl2ttf\lib\x86\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\;$(SolutionDir)Dependencies\Sdl2ttf\lib\x86\;$(SolutionDir)Dependencies\Sdl2Mixer\lib\x86\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,7 +117,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SUS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\;$(SolutionDir)Dependencies\Sdl2Mixer\include\</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
@@ -126,8 +126,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\;$(SolutionDir)Dependencies\Sdl2Ttf\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\;$(SolutionDir)Dependencies\Sdl2Ttf\lib\x64\;$(SolutionDir)Dependencies\Sdl2Mixer\lib\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,22 +141,22 @@
       <StringPooling>true</StringPooling>
       <AdditionalOptions>/MT %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\;$(SolutionDir)Dependencies\Sdl2Mixer\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\;$(SolutionDir)Dependencies\Sdl2ttf\lib\x86\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x86\;$(SolutionDir)Dependencies\Sdl2Image\lib\x86\;$(SolutionDir)Dependencies\Sdl2ttf\lib\x86\;$(SolutionDir)Dependencies\Sdl2Mixer\lib\x86\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Sdl2\include\;$(SolutionDir)Dependencies\Sdl2Image\include\;$(SolutionDir)Dependencies\Sdl2Ttf\include\;$(SolutionDir)Dependencies\Sdl2Mixer\include\</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -170,11 +170,12 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\;$(SolutionDir)Dependencies\Sdl2Ttf\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Sdl2\lib\x64\;$(SolutionDir)Dependencies\Sdl2Image\lib\x64\;$(SolutionDir)Dependencies\Sdl2Ttf\lib\x64\;$(SolutionDir)Dependencies\Sdl2Mixer\lib\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AudioCache.cpp" />
     <ClCompile Include="Source\Entities\Chimney.cpp" />
     <ClCompile Include="Source\Entities\Entity.cpp" />
     <ClCompile Include="Source\Entities\Hostiles.cpp" />
@@ -211,6 +212,7 @@
     <None Include="Resources\Highscore.sav" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AudioCache.h" />
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\Entities\Chimney.h" />
     <ClInclude Include="Source\Entities\Entity.h" />
@@ -246,6 +248,17 @@
     <Image Include="Resources\Textures\Logo.png" />
     <Image Include="Resources\Textures\Snow.png" />
     <Image Include="Resources\Textures\SpriteSheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Audio\Attack.wav" />
+    <Media Include="Resources\Audio\GameOver.wav" />
+    <Media Include="Resources\Audio\Heal.wav" />
+    <Media Include="Resources\Audio\Hit.wav" />
+    <Media Include="Resources\Audio\Hurt.wav" />
+    <Media Include="Resources\Audio\Menu.wav" />
+    <Media Include="Resources\Audio\Orb.wav" />
+    <Media Include="Resources\Audio\SpecialAttack.wav" />
+    <Media Include="Resources\Audio\SpecialHit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

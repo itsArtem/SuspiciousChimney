@@ -51,6 +51,16 @@ namespace sus
 		fontCache.open("Resources/Font.ttf", 42);
 		fontCache.open("Resources/Font.ttf", 29);
 		fontCache.open("Resources/Font.ttf", 32);
+
+		audioCache.loadChunk("Resources/Audio/Attack.wav");
+		audioCache.loadChunk("Resources/Audio/GameOver.wav");
+		audioCache.loadChunk("Resources/Audio/Heal.wav");
+		audioCache.loadChunk("Resources/Audio/Hit.wav");
+		audioCache.loadChunk("Resources/Audio/Hurt.wav");
+		audioCache.loadChunk("Resources/Audio/Menu.wav");
+		audioCache.loadChunk("Resources/Audio/Orb.wav");
+		audioCache.loadChunk("Resources/Audio/SpecialAttack.wav");
+		audioCache.loadChunk("Resources/Audio/Hit.wav");
 		
 		TTF_SetFontStyle(fontCache[0], TTF_STYLE_BOLD);
 		TTF_SetFontStyle(fontCache[1], TTF_STYLE_BOLD);

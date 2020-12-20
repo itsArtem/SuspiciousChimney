@@ -3,6 +3,7 @@
 #include "GameStates/GameStateManager.h"
 #include "Graphics/TextureCache.h"
 #include "Graphics/FontCache.h"
+#include "AudioCache.h"
 
 #include <SDL_video.h>
 #include <SDL_render.h>
@@ -17,8 +18,10 @@ namespace sus
 		const int ups{60};
 		
 		states::GameStateManager gameStateManager;
+		
 		gfx::TextureCache textureCache;
 		gfx::FontCache fontCache;
+		AudioCache audioCache;
 
 		void run() noexcept;
 		void terminate() noexcept { running = false; }

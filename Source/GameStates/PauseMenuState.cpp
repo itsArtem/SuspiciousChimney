@@ -2,6 +2,9 @@
 #include "../GameStates/GameplayState.h"
 #include "../GameStates/HowToPlayState.h"
 #include "../GameStates/MainMenuState.h"
+#include "../AudioCache.h"
+
+#include <SDL_mixer.h>
 
 #include <string>
 
@@ -9,16 +12,6 @@ namespace sus::states
 {
 	void PauseMenuState::update() noexcept
 	{
-		if (buttons[0].wasReleased())
-			game.gameStateManager.popBack();
-		else if (buttons[1].wasReleased())
-			game.gameStateManager.emplaceBack<states::HowToPlayState>(game);
-		else if (buttons[2].wasReleased())
-		{
-			game.gameStateManager.popBack();
-			game.gameStateManager.emplaceBack<states::MainMenuState>(game);
-		}
-
 		for (gfx::Button &button : buttons)
 		{
 			if (button.isClicked())
@@ -27,6 +20,23 @@ namespace sus::states
 				button.setColourMod({150, 150, 150, 255});
 			else
 				button.setColourMod({255, 255, 255, 255});
+		}
+
+		if (buttons[0].wasReleased())
+		{
+			game.gameStateManager.popBack();
+			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+		}
+		else if (buttons[1].wasReleased())
+		{
+			game.gameStateManager.emplaceBack<states::HowToPlayState>(game);
+			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+		}
+		else if (buttons[2].wasReleased())
+		{
+			game.gameStateManager.popBack();
+			game.gameStateManager.emplaceBack<states::MainMenuState>(game);
+			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
 		}
 
 		snow.update();

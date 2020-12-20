@@ -2,8 +2,10 @@
 #include "../Game.h"
 #include "../GameStates/GameStateManager.h"
 #include "../GameStates/CutsceneState.h"
+#include "../AudioCache.h"
 
 #include <SDL_video.h>
+#include <SDL_mixer.h>
 
 namespace sus::states
 {
@@ -17,7 +19,10 @@ namespace sus::states
             back.setColourMod({255, 255, 255, 255});
 
         if (back.wasReleased())
-            game.gameStateManager.popBack();
+        {
+             game.gameStateManager.popBack();
+             Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+        }
 
         snow.update();
     }

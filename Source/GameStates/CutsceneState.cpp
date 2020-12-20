@@ -5,9 +5,12 @@
 #include "../Graphics/Animation.h"
 #include "../GameStates/GameplayState.h"
 #include "../GameStates/PauseMenuState.h"
+#include "../AudioCache.h"
 
 #include <SDL_render.h>
 #include <SDL_keyboard.h>
+#include <SDL_scancode.h>
+#include <SDL_mixer.h>
 
 #include <optional>
 #include <cstdint>
@@ -36,12 +39,16 @@ namespace sus::states
 		{
 			game.gameStateManager.emplaceBack<states::PauseMenuState>(game);
 			pressedPause = false;
+			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
 		}
 
 		if (keyboard[SDL_SCANCODE_SPACE])
 			pressedSkip = true;
 		else if (pressedSkip)
+		{
 			startGame();
+			Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+		}
 
 		timePassed += 1.0f / game.ups;
 		if (timePassed >= 3.0f)

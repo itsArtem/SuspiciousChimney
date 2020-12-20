@@ -26,7 +26,7 @@ namespace sus::states
 		gfx::Button back{SDL_FPoint{35.0f, 45.0f}, std::make_unique<gfx::Text>("Back", game.fontCache[3], SDL_Colour{255, 255, 255, 255}, game.getRenderer()), false};
 
 		gfx::Text title{"About", game.fontCache[1], SDL_Colour{200, 30, 30, 255}, game.getRenderer()};
-		gfx::Text msg1{"Suspicious Chimney is a game developed in 48 hours", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
+		gfx::Text msg1{"Suspicious Chimney is a game developed in 72 hours", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
 		gfx::Text msg2{"from scratch using C++ and SDL2 by Artem Katerynych", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
 		gfx::Text msg3{"for a Christmas coding challenge.", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};
 		gfx::Text msg4{"Thanks for playing!", game.fontCache[2], SDL_Colour{255, 255, 255, 255}, game.getRenderer()};

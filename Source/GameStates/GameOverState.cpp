@@ -1,6 +1,9 @@
 #include "GameOverState.h"
 #include "../GameStates/GameplayState.h"
 #include "../GameStates/MainMenuState.h"
+#include "../AudioCache.h"
+
+#include <SDL_mixer.h>
 
 #include <string>
 
@@ -15,6 +18,19 @@ namespace sus::states
 	
 	void GameOverState::update() noexcept
 	{
+		for (gfx::Button &button : buttons)
+		{
+			if (button.isClicked())
+			{
+				button.setColourMod({190, 25, 25, 255});
+				Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+			}
+			else if (button.isHoveredOver())
+				button.setColourMod({150, 150, 150, 255});
+			else
+				button.setColourMod({255, 255, 255, 255});
+		}
+
 		if (buttons[0].wasReleased())
 		{
 			game.gameStateManager.popBack();
@@ -24,16 +40,6 @@ namespace sus::states
 		{
 			game.gameStateManager.popBack();
 			game.gameStateManager.emplaceBack<states::MainMenuState>(game);
-		}
-
-		for (gfx::Button &button : buttons)
-		{
-			if (button.isClicked())
-				button.setColourMod({190, 25, 25, 255});
-			else if (button.isHoveredOver())
-				button.setColourMod({150, 150, 150, 255});
-			else
-				button.setColourMod({255, 255, 255, 255});
 		}
 
 		snow.update();

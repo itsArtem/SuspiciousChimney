@@ -3,9 +3,11 @@
 #include "../Utility.h"
 #include "../Game.h"
 #include "../GameStates/GameOverState.h"
+#include "../AudioCache.h"
 
 #include <SDL_keyboard.h>
 #include <SDL_scancode.h>
+#include <SDL_mixer.h>
 
 #include <cstdint>
 
@@ -37,12 +39,12 @@ namespace sus::entities
 		const SDL_FRect hitbox{tf.pos.x + tf.bounds.x, tf.pos.y + tf.bounds.y, tf.bounds.w, tf.bounds.h};
 		bool attacking{false};
 
-		constexpr int specialCost{3};
+		constexpr int specialCost{2};
 		usingSpecial = false;
 
 		if (*properties.health > 0)
 		{
-			if (canAttack || !controllableVisuals)
+			if (timeSinceAttack > 50.0f || !controllableVisuals)
 				tf.velocity.y = speed.y;
 
 			if (controllableVisuals)
@@ -86,6 +88,12 @@ namespace sus::entities
 				scene.camera.pos.y = hitbox.y - hitbox.h + hitbox.h / 4;
 			}
 
+			if (attacking)
+				if (!usingSpecial)
+					Mix_PlayChannel(-1, game.audioCache.getChunk(0), 0);
+				else
+					Mix_PlayChannel(-1, game.audioCache.getChunk(8), 0);
+
 			const SDL_FRect attackRange{hitbox.x, hitbox.y + tf.velocity.y, hitbox.w, hitbox.h + 200.0f};
 
 			for (auto &other : scene.entities)
@@ -105,13 +113,17 @@ namespace sus::entities
 
 					if (other->properties.consumable == ConsumableType::none)
 					{
-						if (left < right)
-							tf.pos.x += left + ejectDist;
-						else
-							tf.pos.x -= right + ejectDist;
+						if (!other->properties.despawnOnCollision)
+						{
+							if (left < right)
+								tf.pos.x += left + ejectDist;
+							else
+								tf.pos.x -= right + ejectDist;
 
-						tf.velocity.x = 0.0f;
-						//hit = true;
+							tf.velocity.x = 0.0f;
+						}
+						else
+							hit = true;
 					}
 					collision = true;
 				}
@@ -123,12 +135,15 @@ namespace sus::entities
 
 					if (other->properties.consumable == ConsumableType::none)
 					{
-						if (up < down)
-							tf.pos.y += up + ejectDist;
-						else
-							tf.pos.y -= down + ejectDist;
+						if (!other->properties.despawnOnCollision)
+						{
+							if (up < down)
+								tf.pos.y += up + ejectDist;
+							else
+								tf.pos.y -= down + ejectDist;
 
-						tf.velocity.y = 0.0f;
+							tf.velocity.y = 0.0f;
+						}
 						hit = true;
 					}
 					collision = true;
@@ -144,6 +159,7 @@ namespace sus::entities
 						{
 							++gameplayState->special;
 							other->active = false;
+							Mix_PlayChannel(-1, game.audioCache.getChunk(6), 0);
 						}
 						else if (other->properties.consumable == ConsumableType::health)
 						{
@@ -155,12 +171,18 @@ namespace sus::entities
 							}
 
 							other->active = false;
+							Mix_PlayChannel(-1, game.audioCache.getChunk(2), 0);
 						}
 				}
 
 				if (controllableVisuals && hit && !hurt)
 				{
 					--properties.health.value();
+					if (*properties.health <= 0)
+						Mix_PlayChannel(-1, game.audioCache.getChunk(1), 0);
+					else
+						Mix_PlayChannel(-1, game.audioCache.getChunk(4), 0);
+
 					hurt = true;
 					knockback = true;
 				}
@@ -179,9 +201,13 @@ namespace sus::entities
 					{
 						*other->properties.health -= 2;
 						gameplayState->special -= specialCost;
+						Mix_PlayChannel(-1, game.audioCache.getChunk(7), 0);
 					}
 					else
+					{
 						--other->properties.health.value();
+						Mix_PlayChannel(-1, game.audioCache.getChunk(3), 0);
+					}
 
 					if (gameplayState && *other->properties.health == 0)
 						++gameplayState->score;

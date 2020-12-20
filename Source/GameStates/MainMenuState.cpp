@@ -4,38 +4,52 @@
 #include "../GameStates/CutsceneState.h"
 #include "../GameStates/HowToPlayState.h"
 #include "../GameStates/AboutState.h"
+#include "../AudioCache.h"
 
 #include <SDL_render.h>
+#include <SDL_mixer.h>
 
 namespace sus::states
 {
 	void MainMenuState::update() noexcept
 	{
-		if (buttons[0].wasReleased())
+		if (!quit)
 		{
-			game.gameStateManager.popBack();
-			game.gameStateManager.emplaceBack<states::CutsceneState>(game);
-		}
-		else if (buttons[1].wasReleased())
-		{
-			game.gameStateManager.emplaceBack<states::HowToPlayState>(game);
-		}
-		else if (buttons[2].wasReleased())
-		{
-			game.gameStateManager.emplaceBack<states::AboutState>(game);
-		}
-		else if (buttons[3].wasReleased())
-			game.terminate();
+			for (gfx::Button &button : buttons)
+			{
+				if (button.isClicked())
+					button.setColourMod({190, 25, 25, 255});
+				else if (button.isHoveredOver())
+					button.setColourMod({150, 150, 150, 255});
+				else
+					button.setColourMod({255, 255, 255, 255});
+			}
 
-		for (gfx::Button &button : buttons)
-		{
-			if (button.isClicked())
-				button.setColourMod({190, 25, 25, 255});
-			else if (button.isHoveredOver())
-				button.setColourMod({150, 150, 150, 255});
-			else
-				button.setColourMod({255, 255, 255, 255});
+			if (buttons[0].wasReleased())
+			{
+				game.gameStateManager.popBack();
+				game.gameStateManager.emplaceBack<states::CutsceneState>(game);
+				Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+			}
+			else if (buttons[1].wasReleased())
+			{
+				game.gameStateManager.emplaceBack<states::HowToPlayState>(game);
+				Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+			}
+			else if (buttons[2].wasReleased())
+			{
+				game.gameStateManager.emplaceBack<states::AboutState>(game);
+				Mix_PlayChannel(-1, game.audioCache.getChunk(5), 0);
+			}
+			else if (buttons[3].wasReleased())
+			{
+				quit = true;
+				Mix_PlayChannel(0, game.audioCache.getChunk(5), 0);
+			}
 		}
+
+		if (quit && !Mix_Playing(0))
+			game.terminate();
 
 		snow.update();
 	}

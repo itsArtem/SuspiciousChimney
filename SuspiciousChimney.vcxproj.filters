@@ -26,6 +26,7 @@
     <ClCompile Include="Source\GameStates\HowToPlayState.cpp" />
     <ClCompile Include="Source\GameStates\AboutState.cpp" />
     <ClCompile Include="Source\GameStates\PauseMenuState.cpp" />
+    <ClCompile Include="Source\AudioCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Source\GameStates\HowToPlayState.h" />
     <ClInclude Include="Source\GameStates\AboutState.h" />
     <ClInclude Include="Source\GameStates\PauseMenuState.h" />
+    <ClInclude Include="Source\AudioCache.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Font.ttf" />
@@ -69,5 +71,16 @@
     <Image Include="Resources\Textures\SpriteSheet.png" />
     <Image Include="Resources\Textures\Snow.png" />
     <Image Include="Resources\Textures\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Audio\Attack.wav" />
+    <Media Include="Resources\Audio\GameOver.wav" />
+    <Media Include="Resources\Audio\Heal.wav" />
+    <Media Include="Resources\Audio\Hit.wav" />
+    <Media Include="Resources\Audio\Hurt.wav" />
+    <Media Include="Resources\Audio\Menu.wav" />
+    <Media Include="Resources\Audio\Orb.wav" />
+    <Media Include="Resources\Audio\SpecialAttack.wav" />
+    <Media Include="Resources\Audio\SpecialHit.wav" />
   </ItemGroup>
 </Project>
